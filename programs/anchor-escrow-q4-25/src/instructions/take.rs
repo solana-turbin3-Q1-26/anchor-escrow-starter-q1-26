@@ -16,7 +16,8 @@ use crate::Escrow;
 pub struct Take<'info> {
     #[account(mut)]
     pub taker: Signer<'info>,
-    pub maker: Signer<'info>,
+    #[account(mut)]
+    pub maker: SystemAccount<'info>,
 
     #[account(mint::token_program = token_program)]
     pub mint_a: InterfaceAccount<'info, Mint>,
@@ -54,6 +55,7 @@ pub struct Take<'info> {
         mut,
         close = taker,
         has_one = mint_a,
+        has_one = mint_b,
         has_one = maker,
         seeds = [b"escrow", maker.key().as_ref(), &escrow.seed.to_le_bytes()],
         bump = escrow.bump
