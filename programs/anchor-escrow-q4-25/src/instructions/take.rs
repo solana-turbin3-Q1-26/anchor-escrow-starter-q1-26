@@ -16,7 +16,6 @@ use crate::Escrow;
 pub struct Take<'info> {
     #[account(mut)]
     pub taker: Signer<'info>,
-    #[account(mut)]
     pub maker: SystemAccount<'info>,
 
     #[account(mint::token_program = token_program)]
